@@ -22,4 +22,4 @@ grouped = GROUP lines BY line;
 wordcount = FOREACH grouped GENERATE group, COUNT(lines);
 
 -- escribe el archivo de salida en el sistema local
-STORE wordcount INTO 'output';
+STORE wordcount INTO 'output' USING PigStorage(',');
