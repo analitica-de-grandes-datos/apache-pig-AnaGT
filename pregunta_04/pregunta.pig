@@ -50,4 +50,4 @@ specific_columns = FOREACH truck_events_subset GENERATE driverId, truckId, event
 ordered_data = ORDER specific_columns BY driverId, truckId, eventTime asc;
 
 -- escribe el archivo de salida en el sistema local
-STORE ordered_data INTO 'output';
+STORE ordered_data INTO 'output' USING PigStorage(',');
