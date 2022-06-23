@@ -22,4 +22,4 @@ s = LIMIT ordered_data 5;
 extraer = FOREACH s GENERATE f3;
 
 -- escribe el archivo de salida en el sistema local
-STORE extraer INTO 'output';
+STORE extraer INTO 'output' USING PigStorage(',');
