@@ -24,4 +24,4 @@ lines = LOAD 'data.csv' USING PigStorage (',') AS (f1:INT, f2:CHARARRAY, f3:CHAR
 extraer = FOREACH lines GENERATE f2,f5;
 b = FILTER extraer BY f5=='blue'AND STARTSWITH (f2 ,'Z');
 
-STORE b INTO 'output';
+STORE b INTO 'output' USING PigStorage ('\t');
