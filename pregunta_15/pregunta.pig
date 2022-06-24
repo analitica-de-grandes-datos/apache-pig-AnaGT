@@ -21,8 +21,17 @@ $ pig -x local -f pregunta.pig
           >>> Escriba su respuesta a partir de este punto <<<
 */
 -- carga de datos desde la carpeta local
-lines = LOAD 'data.csv' USING PigStorage (',')  AS (f1:INT, f2:CHARARRAY, f3:CHARARRAY, f4:DATETIME, f5:CHARARRAY);
-extraer = FOREACH lines GENERATE f2,f5;
-b = FILTER extraer BY (f5=='blue'AND STARTSWITH (f2 ,'Z'));
+lines = LOAD 'data.csv' USING PigStorage(',')
+    AS (
+            f1:int,
+            f2:chararray,
+            f3:chararray,
+            f4:chararray,
+            f5:chararray,
+            f6:int
+    );
 
-STORE b INTO 'output';
+
+A = FOREACH lines GENERATE CONCAT(f2,' ',f5) AS columna;
+B = FILTER A BY STARTSWITH (columna,'Z');
+STORE B INTO 'output';
