@@ -18,8 +18,7 @@ $ pig -x local -f pregunta.pig
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
-
 -- carga de datos desde la carpeta local
-lines = LOAD 'data.csv' USING PigStorage (',') AS (f1:INT, f2:CHARARRAY, f3:CHARARRAY, f4:DATETIME, f5:CHARARRAY);
-extraer = FOREACH lines GENERATE  GetMonth(f4);
-STORE extraer INTO 'output' USING PigStorage (',');
+lines = LOAD 'data.csv' USING PigStorage (',') AS (f1:INT, f2:CHARARRAY, f3:CHARARRAY, f4:CHARARRAY, f5:CHARARRAY);
+e = FOREACH lines GENERATE SUBSTRING(f4,5,7);
+STORE e INTO 'output';
