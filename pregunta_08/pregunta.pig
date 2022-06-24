@@ -16,4 +16,12 @@ $ pig -x local -f pregunta.pig
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
+---Cargar data
+u = LOAD 'data.tsv' AS (f1:CHARARRAY , f2:BAG{t:TUPLE(p:CHARARRAY)} , f3:MAP[]);
+w = FOREACH u GENERATE FLATTEN(f2), FLATTEN(f3);
+n = FOREACH w GENERATE ($0,$1) AS tupla;
+ordenar = ORDER n BY tupla;
+agrupar = GROUP ordenar BY tupla;
+C = FOREACH agrupar GENERATE group, COUNT(ordenar);
 
+STORE C INTO 'output' USING PigStorage (',');
