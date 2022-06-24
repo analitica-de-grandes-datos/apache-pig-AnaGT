@@ -22,6 +22,6 @@ $ pig -x local -f pregunta.pig
 -- carga de datos desde la carpeta local
 lines = LOAD 'data.csv' USING PigStorage (',') AS (f1:INT, f2:CHARARRAY, f3:CHARARRAY, f4:DATETIME, f5:CHARARRAY);
 extraer = FOREACH lines GENERATE f2,f5;
-b = FILTER extraer BY f5=='blue';
-e = FILTER extraer BY STARTSWITH (f2 ,'Z');
-STORE e INTO 'output';
+b = FILTER extraer BY f5=='blue'AND STARTSWITH (f2 ,'Z');
+
+STORE b INTO 'output';
