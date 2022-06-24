@@ -20,4 +20,18 @@ $ pig -x local -f pregunta.pig
 
         >>> Escriba su respuesta a partir de este punto <<<
 */
+lines = LOAD 'data.csv' USING PigStorage(',')
+    AS (
+            f1:int,
+            f2:chararray,
+            f3:chararray,
+            f4:chararray,
+            f5:chararray,
+            f6:int
+    );
+
+B = FOREACH lines GENERATE f2 AS (f2:chararray);
+C = FILTER B BY STARTSWITH (f2,'M') OR STARTSWITH (f2,'Z') OR STARTSWITH (f2,'R') OR STARTSWITH (f2,'V');
+
+STORE C INTO 'output';
 
